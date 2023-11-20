@@ -25,6 +25,7 @@ public class User_State {
 	private State state;
 	
 	Date date;
+	int ore;
 	
 	public User_State() {
 		
