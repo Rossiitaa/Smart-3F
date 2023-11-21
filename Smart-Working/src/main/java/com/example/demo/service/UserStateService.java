@@ -32,7 +32,6 @@ public class UserStateService {
 
 	public void deleteUserState(Long user_id, Long state_id) {
 		userStateRepository.deleteById(state_id);
-		
 	}
 	
 	

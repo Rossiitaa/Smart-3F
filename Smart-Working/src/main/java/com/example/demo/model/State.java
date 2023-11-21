@@ -2,14 +2,11 @@ package com.example.demo.model;
 
 import java.util.List;
 
-import org.aspectj.lang.annotation.control.CodeGenerationHint;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -19,7 +16,7 @@ public class State {
 	private Long state_id;
 	private States state;
 	
-	@OneToMany(mappedBy="state")
+	@OneToMany(mappedBy="state",cascade=CascadeType.ALL,orphanRemoval = true)
 	private List<User_State> user_states;
 	
 	public State() {

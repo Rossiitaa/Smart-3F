@@ -22,6 +22,7 @@ public class User_State {
 	@ManyToOne
 	@MapsId("stateid")
 	@JoinColumn(name="state_id")
+	
 	private State state;
 	
 	Date date;
