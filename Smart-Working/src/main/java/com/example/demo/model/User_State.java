@@ -79,6 +79,12 @@ public class User_State {
 	public void setOre(int ore) {
 		this.ore = ore;
 	}
+
+	@Override
+	public String toString() {
+		return "User_State [id=" + id + ", user=" + user + ", state=" + state + ", ore=" + ore + "]";
+	}
+	
 	
 	
 	

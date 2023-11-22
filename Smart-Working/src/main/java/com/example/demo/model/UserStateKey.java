@@ -16,7 +16,8 @@ public class UserStateKey implements Serializable{
 	private Long userid;
 	@Column (name="state_id")
 	private Long stateid;
-	Date date;
+	@Column(name = "date")
+	private Date date;
 	
 	public UserStateKey() {
 		
@@ -29,7 +30,6 @@ public class UserStateKey implements Serializable{
 		this.stateid = stateid;
 		this.date = date;
 	}
-
 
 	public Long getUserid() {
 		return userid;
@@ -56,6 +56,8 @@ public class UserStateKey implements Serializable{
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+
 
 	
 

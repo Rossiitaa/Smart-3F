@@ -4,25 +4,25 @@ import java.sql.Date;
 
 public class Request {
 	
-	private Date data;
+	private Date date;
 	private Integer ore;
 	
 	public Request() {
 		
 	}
 
-	public Request(Date data, Integer ore) {
+	public Request(Date date, Integer ore) {
 		super();
-		this.data = data;
+		this.date = date;
 		this.ore = ore;
 	}
 
 	public Date getData() {
-		return data;
+		return date;
 	}
 
 	public void setData(Date data) {
-		this.data = data;
+		this.date = data;
 	}
 
 	public Integer getOre() {

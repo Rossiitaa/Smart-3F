@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ public class User {
 	private Long user_id;
 	private String nome;
 	private String cognome;
+	
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<User_State> user_states;
@@ -64,7 +67,7 @@ public class User {
 	public void setStates(List<User_State> states) {
 		this.user_states = states;
 	}
-	
+
 	
 
 }

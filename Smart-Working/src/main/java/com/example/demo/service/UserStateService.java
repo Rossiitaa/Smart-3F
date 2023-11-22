@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,23 @@ public class UserStateService {
 	public void deleteUserState(Request request, Long user_id, Long state_id) {
 		UserStateKey usk = new UserStateKey(user_id,state_id,request.getData());
 		userStateRepository.deleteById(usk);
+	}
+
+
+	public List<User> getAllAbsentByDate(Date date) {
+		// TODO Auto-generated method stub
+		State s = stateRepository.getReferenceById((long) 1);
+		List<User_State> us = userStateRepository.findAllByState(s);
+		
+		System.out.println(us);
+		List<User> usdate = new ArrayList<User>();
+		
+		for(User_State u : us) {
+			if(u.getId().getDate() == date)
+				usdate.add( userRepository.getReferenceById( u.getUser().getId()) );
+		}
+		
+		return usdate;
 	}
 	
 

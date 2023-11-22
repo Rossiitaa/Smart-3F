@@ -50,7 +50,14 @@ public class UserStateController {
 		userStateService.deleteUserState(request,user_id, state_id);
 	}
 	
+	@GetMapping("/getAllAbsentsByDate/{date}")
+	public List<User> getAllAbsentsByDate(@PathVariable Date date){
+		return userStateService.getAllAbsentByDate(date);
+	}
 	
+	//getallAbsent
+	//getAllSmart
+	//getAllSmartbyDate
 	
 
 }

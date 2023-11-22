@@ -3,7 +3,10 @@ package com.example.demo.model;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,6 +17,9 @@ public class State {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long state_id;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(length = 20)
 	private States state;
 	
 	@OneToMany(mappedBy="state",cascade=CascadeType.ALL,orphanRemoval = true)
@@ -52,6 +58,8 @@ public class State {
 	public void setUsers(List<User_State> user_states) {
 		this.user_states = user_states;
 	}
+	
+	
 	
 	
 	
