@@ -25,8 +25,8 @@ export class AppComponent {
 
   openModal(info: any): void {
     const dialogRef = this.dialog.open(CalendarmodalComponent, {
-      width: '250px',
-      data: { date: info.dateStr }
+      width: '500px',
+      data: { date: info.dateStr },
     });
 
   }
