@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.service.annotation.DeleteExchange;
 import org.springframework.web.service.annotation.PutExchange;
 
+import com.example.demo.model.Request;
 import com.example.demo.model.State;
 import com.example.demo.model.User;
 import com.example.demo.model.User_State;
@@ -29,23 +31,23 @@ public class UserStateController {
 	private UserStateService userStateService;
 	
 	@GetMapping("/getUserStates")
-	public List<User_State> getUserStates(){
+	public List<User_State> getUserStates(){ 
 		return userStateService.getUserStates();
 	}
 	
-	@PostMapping("/saveUserState")
-	public User_State saveUserState(@RequestBody User_State user_state) {
-		return userStateService.saveUserState(user_state);
+	@PostMapping("/saveUserState/{user_id}/{state_id}")
+	public User_State saveUserState(@RequestBody Request request, @PathVariable Long user_id, @PathVariable Long state_id) {
+		return userStateService.saveUserState(request, user_id, state_id);
 	}
 	
 	@PutMapping("/updateUserState/{user_id}/{state_id}")
-	public User_State updateUserState(@RequestBody User_State user_state, @PathVariable Long user_id, @PathVariable Long state_id) {
-		return userStateService.updateUserState(user_state, user_id, state_id);
+	public User_State updateUserState(@RequestBody Request request, @PathVariable Long user_id, @PathVariable Long state_id) {
+		return userStateService.updateUserState(request, user_id, state_id);
 	}
 	
 	@DeleteMapping("/deleteUserState/{user_id}/{state_id}")
-	public void deleteUserState(@PathVariable Long user_id, @PathVariable Long state_id) {
-		userStateService.deleteUserState(user_id, state_id);
+	public void deleteUserState(@RequestBody Request request, @PathVariable Long user_id, @PathVariable Long state_id) {
+		userStateService.deleteUserState(request,user_id, state_id);
 	}
 	
 	

@@ -1,11 +1,19 @@
 package com.example.demo.service;
 
+
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.Request;
+import com.example.demo.model.State;
+import com.example.demo.model.User;
+import com.example.demo.model.UserStateKey;
 import com.example.demo.model.User_State;
+import com.example.demo.repository.StateRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.UserStateRepository;
 
 @Service
@@ -13,27 +21,47 @@ public class UserStateService {
 	
 	@Autowired
 	private UserStateRepository userStateRepository;
-
+	@Autowired
+	private StateRepository stateRepository;
+	@Autowired 
+	private UserRepository userRepository;
+	
 	public List<User_State> getUserStates() {
 		return userStateRepository.findAll();
 	}
 
-	public User_State saveUserState(User_State user_state) {
-		return userStateRepository.save(user_state);
-	}
 
-	public User_State updateUserState(User_State user_state, Long user_id, Long state_id) {
-		User_State us=userStateRepository.getReferenceById(state_id);
-		us.setDate(user_state.getDate());
-		us.setState(user_state.getState());
-		us.setUser(user_state.getUser());
+	public User_State saveUserState(Request request, Long user_id, Long state_id) {
+		// TODO Auto-generated method stub
+		State s = stateRepository.getReferenceById(state_id);
+		User u = userRepository.getReferenceById(user_id);
+		UserStateKey usk = new UserStateKey(user_id, state_id, request.getData());
+		User_State us = new User_State(usk,u,s);
+			
+		us.setOre(request.getOre());
+		
+		return userStateRepository.save(us);
+	}
+	
+	
+
+
+	public User_State updateUserState(Request request, Long user_id, Long state_id) {
+		UserStateKey usk = new UserStateKey(user_id,state_id,request.getData());
+		User u = userRepository.getReferenceById(user_id);
+		State s = stateRepository.getReferenceById(state_id);
+		User_State us=userStateRepository.getReferenceById(usk);
+		us.setState(s);
+		us.setUser(u);
+		us.setOre(request.getOre());
 		return userStateRepository.save(us);
 	}
 
-	public void deleteUserState(Long user_id, Long state_id) {
-		userStateRepository.deleteById(state_id);
+	public void deleteUserState(Request request, Long user_id, Long state_id) {
+		UserStateKey usk = new UserStateKey(user_id,state_id,request.getData());
+		userStateRepository.deleteById(usk);
 	}
 	
-	
+
 
 }

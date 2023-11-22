@@ -2,8 +2,13 @@ package com.example.demo.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -15,29 +20,33 @@ public class User_State {
 	UserStateKey id;
 	
 	@ManyToOne
+	@JsonIgnore
 	@MapsId("userid")
 	@JoinColumn(name="user_id")
 	private User user;
 	
 	@ManyToOne
+	@JsonIgnore
 	@MapsId("stateid")
 	@JoinColumn(name="state_id")
 	
 	private State state;
 	
-	Date date;
+	
 	int ore;
 	
 	public User_State() {
 		
 	}
 
-	public User_State(User user, State state, Date date) {
+	public User_State(UserStateKey usk, User user, State state) {
 		
+		this.id=usk;
 		this.user = user;
 		this.state = state;
-		this.date = date;
 	}
+	
+	
 
 	public UserStateKey getId() {
 		return id;
@@ -63,12 +72,12 @@ public class User_State {
 		this.state = state;
 	}
 
-	public Date getDate() {
-		return date;
+	public int getOre() {
+		return ore;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setOre(int ore) {
+		this.ore = ore;
 	}
 	
 	

@@ -1,9 +1,13 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Embeddable
 public class UserStateKey implements Serializable{
@@ -12,16 +16,20 @@ public class UserStateKey implements Serializable{
 	private Long userid;
 	@Column (name="state_id")
 	private Long stateid;
+	Date date;
 	
 	public UserStateKey() {
 		
 	}
 
-	public UserStateKey(Long userid, Long stateid) {
+	
+	public UserStateKey(Long userid, Long stateid, Date date) {
 		super();
 		this.userid = userid;
 		this.stateid = stateid;
+		this.date = date;
 	}
+
 
 	public Long getUserid() {
 		return userid;
@@ -38,7 +46,17 @@ public class UserStateKey implements Serializable{
 	public void setStateid(Long stateid) {
 		this.stateid = stateid;
 	}
-	
+
+
+	public Date getDate() {
+		return date;
+	}
+
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
 	
 
 }
