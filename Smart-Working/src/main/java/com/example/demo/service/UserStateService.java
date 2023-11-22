@@ -73,7 +73,7 @@ public class UserStateService {
 		List<User> usdate = new ArrayList<User>();
 		
 		for(User_State u : us) {
-			if(u.getId().getDate() == date)
+			if(u.getId().getDate().equals(date))
 				usdate.add( userRepository.getReferenceById( u.getUser().getId()) );
 		}
 		
