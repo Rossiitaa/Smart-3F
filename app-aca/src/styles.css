@@ -1,6 +1,13 @@
 body {
     background-color: #f5f6fb;
 }
+a {
+    color: black!important;
+    text-decoration: underline;
+}
+.navbar {
+    background-color: #ebeefa!important;
+}
 .fc .fc-daygrid-day.fc-day-today { 
     background-color: #9fa9e7;
 }
@@ -8,4 +15,22 @@ body {
     min-height: 100%;
     position: relative;
     background-color: #4d60cd1c;
+}
+.fc .fc-button-primary {
+    background-color: #3f51b5;
+    border-color: #6a79cb54;
+    color: var(--fc-button-text-color);
+    transition: .8s;
+}
+
+.fc .fc-button-primary:hover {
+    background-color: #2d3fa7;
+    border-color: #6a79cb54;
+    color: var(--fc-button-text-color);
+}
+.fc table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+    font-size: 1em;
+    border-radius: 0px 0px 10px 10px;
 }
