@@ -74,10 +74,64 @@ public class UserStateService {
 		
 		for(User_State u : us) {
 			if(u.getId().getDate().equals(date))
-				usdate.add( userRepository.getReferenceById( u.getUser().getId()) );
+				usdate.add( u.getUser() );
 		}
 		
 		return usdate;
+	}
+
+	
+
+	public List<User> getAllSmartByDate(Date date) {
+		
+		State s=stateRepository.getReferenceById((long)2);
+		
+		List<User_State> us= userStateRepository.findAllByState(s);
+		
+		List<User>user=new ArrayList<User>();
+		
+		for(User_State u:us) {
+			if(u.getId().getDate().equals(date)) {
+				user.add(u.getUser());
+			}
+			
+		}
+		return user;
+	}
+
+
+	public List<User> getAllAbsent() {
+		// TODO Auto-generated method stub
+
+		State s=stateRepository.getReferenceById((long)1);
+		
+		List<User_State> us = userStateRepository.findAllByState(s);
+		
+		List<User>user=new ArrayList<User>();
+		
+		for(User_State u:us) {
+			user.add(u.getUser());
+			
+			
+		}
+		return user;
+	}
+
+
+	public List<User> getAllSmart() {
+		// TODO Auto-generated method stub
+		State s=stateRepository.getReferenceById((long)2);
+		
+		List<User_State> us = userStateRepository.findAllByState(s);
+		
+		List<User>user=new ArrayList<User>();
+		
+		for(User_State u:us) {
+			user.add(u.getUser());
+			
+			
+		}
+		return user;
 	}
 	
 

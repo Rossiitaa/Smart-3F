@@ -58,6 +58,20 @@ public class UserStateController {
 	//getallAbsent
 	//getAllSmart
 	//getAllSmartbyDate
+	@GetMapping("/getAllSmartByDate/{date}")
+	public List<User> getAllSmartByDate(@PathVariable Date date){
+		return userStateService.getAllSmartByDate(date);
+	}
+	
+	@GetMapping("/getAllAbsent")
+	public List<User> getAllAbsent(){
+		return userStateService.getAllAbsent();
+	}
+	
+	@GetMapping("/getAllSmart")
+	public List<User> getAllSmart(){
+		return userStateService.getAllSmart();
+	}
 	
 
 }

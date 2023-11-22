@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.State;
+import com.example.demo.model.User;
 import com.example.demo.model.UserStateKey;
 import com.example.demo.model.User_State;
 
@@ -23,6 +24,7 @@ public interface UserStateRepository extends JpaRepository<User_State, UserState
 	List<User_State> findAllAbsentByDate(@Param("date") Date date);
 
 	List<User_State> findAllByState(State state);
+
 
 	
 }
