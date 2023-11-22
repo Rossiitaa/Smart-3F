@@ -1,43 +1,46 @@
+<!-- calendarmodal.component.html -->
 <h2 mat-dialog-title>Select Boxes Modal</h2>
 <div class="container">
-    <mat-dialog-content>
+  <mat-dialog-content>
 
+    <mat-form-field class="w-100">
+      <mat-label>Persona</mat-label>
+      <mat-select [(ngModel)]="selectedPerson">
+        <mat-option *ngFor="let person of people" [value]="person">
+          {{ person.name }} {{ person.surname }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field>
+          <mat-label>Tipo di Evento</mat-label>
+          <mat-select [(ngModel)]="eventTitle">
+            <mat-option [value]="'Smart'">Smart</mat-option>
+            <mat-option [value]="'Assenza'">Assenza</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
         <mat-form-field class="w-100">
-            <mat-label>First Select Box</mat-label>
-            <mat-select>
-                <!-- Add options here -->
-            </mat-select>
+          <mat-label>Ore</mat-label>
+          <mat-select [(ngModel)]="selectedHour">
+            <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
+          </mat-select>
         </mat-form-field>
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="col-6">
-                <mat-form-field>
-                    <mat-label>Second Select Box</mat-label>
-                    <mat-select [(ngModel)]="eventTitle">
-                        <mat-option [value]="'Smart'">Smart</mat-option>
-                        <mat-option [value]="'Assenza'">Assenza</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-6">
-                <mat-form-field class="w-100">
-                    <mat-label>Hours</mat-label>
-                    <mat-select>
-                        <mat-option *ngFor="let hour of hours" [value]="hour">{{hour}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
+    <mat-form-field class="example-form-field w-100">
+      <mat-label>Note</mat-label>
+      <input matInput type="text">
+    </mat-form-field>
 
-        <mat-form-field class="example-form-field w-100">
-            <mat-label>Notes</mat-label>
-            <input matInput type="text">
-        </mat-form-field>
+  </mat-dialog-content>
 
-    </mat-dialog-content>
-
-    <mat-dialog-actions class="button-cont">
-        <button class="btn btn-secondary" mat-button (click)="onNoClick()">Close</button>
-        <button class="btn btn-outline-dark ms-3" mat-button [mat-dialog-close]="eventTitle" cdkFocusInitial>Add</button>
-    </mat-dialog-actions>
+  <mat-dialog-actions class="button-cont">
+    <button class="btn btn-secondary" mat-button (click)="onNoClick()">Close</button>
+    <button class="btn btn-outline-dark ms-3" mat-button [mat-dialog-close]="getEventData()" cdkFocusInitial>Add</button>
+  </mat-dialog-actions>
 </div>

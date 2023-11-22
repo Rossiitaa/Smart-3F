@@ -1,3 +1,4 @@
+// app.component.ts
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
@@ -5,13 +6,13 @@ import {
   DateSelectArg,
   EventApi,
   EventClickArg,
-} from '@fullcalendar/core'; // useful for typechecking
+} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarmodalComponent } from './calendarmodal/calendarmodal.component';
-import { INITIAL_EVENTS, createEventId } from './event-util';
+import { createEventId } from './event-util';
 
 @Component({
   selector: 'app-root',
@@ -24,8 +25,7 @@ export class AppComponent {
     initialView: 'dayGridMonth',
     height: 'auto',
     contentHeight: 600,
-    weekends: true,
-    editable: true,
+    weekends: false,
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
@@ -42,7 +42,9 @@ export class AppComponent {
   constructor(
     public dialog: MatDialog,
     private changeDetector: ChangeDetectorRef
-  ) {}
+  ) { }
+
+  selectedEvent!: any;
 
   openModal(info: any): any {
     const dialogRef = this.dialog.open(CalendarmodalComponent, {
@@ -50,59 +52,40 @@ export class AppComponent {
       data: { date: info.dateStr },
     });
 
-    dialogRef.afterClosed().subscribe((eventTitle: string) => {
-      if (eventTitle) {
+    dialogRef.afterClosed().subscribe((eventDetails: any) => {
+      if (eventDetails) {
         const calendarApi = info.view.calendar;
         calendarApi.addEvent({
           id: createEventId(),
-          title: eventTitle,
+          title: eventDetails.eventTitle,
           start: info.startStr,
           end: info.endStr,
           allDay: info.allDay,
+          extendedProps: {
+            name: eventDetails.person.name,
+            surname: eventDetails.person.surname,
+            // Aggiungi altri dettagli dell'evento in base alle tue esigenze
+          },
         });
         calendarApi.unselect();
       }
     });
   }
 
-  handleCalendarToggle() {
-    this.calendarVisible = !this.calendarVisible;
-  }
-
-  handleWeekendsToggle() {
-    const { calendarOptions } = this;
-    calendarOptions.weekends = !calendarOptions.weekends;
-  }
-
-  handleDateSelect(selectInfo: DateSelectArg) {
-    const title = this.openModal(selectInfo);
-    const calendarApi = selectInfo.view.calendar;
-
-    calendarApi.unselect(); // clear date selection
-
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-      });
-    }
-  }
-
   handleEventClick(clickInfo: EventClickArg) {
-    if (
-      confirm(
-        `Are you sure you want to delete the event '${clickInfo.event.title}'`
-      )
-    ) {
-      clickInfo.event.remove();
-    }
+    this.showEventDetails(clickInfo);
   }
 
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
     this.changeDetector.detectChanges();
   }
+
+  showEventDetails(eventGot: EventClickArg) {
+    this.selectedEvent = {
+      name: eventGot.event.extendedProps['name'],
+      surname: eventGot.event.extendedProps['surname']
+    };
+  }
+  
 }
