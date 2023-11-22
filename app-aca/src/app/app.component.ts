@@ -13,6 +13,8 @@ import { CalendarmodalComponent } from './calendarmodal/calendarmodal.component'
 export class AppComponent {
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
+    height: 'auto',
+    contentHeight: 600,
     plugins: [interactionPlugin, dayGridPlugin],
     dateClick: (info) => {
       this.openModal(info);

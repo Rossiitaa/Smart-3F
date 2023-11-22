@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "../../../Desktop/esercizi"
+		},
+		{
+			"path": "../../../Downloads/eserciziTypeScript/eserciziTypeScript"
+		},
+		{
+			"path": "../../../Desktop/Angular"
+		},
+		{
+			"path": "../../../Desktop/AngularJS"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "esercizi"
+	}
+}

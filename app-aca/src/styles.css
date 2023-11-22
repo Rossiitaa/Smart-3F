@@ -1,4 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    background-color: #f5f6fb;
+}
+.fc .fc-daygrid-day.fc-day-today { 
+    background-color: #9fa9e7;
+}
+.fc .fc-daygrid-day-frame {
+    min-height: 100%;
+    position: relative;
+    background-color: #4d60cd1c;
+}
