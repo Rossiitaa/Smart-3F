@@ -73,5 +73,15 @@ public class UserStateController {
 		return userStateService.getAllSmart();
 	}
 	
+	@GetMapping("/getMonthlyAbsenceHoursByUser/{user_id}")
+	public int getMonthlyAbsenceHoursByUser(@PathVariable Long user_id) {
+		return userStateService.getMonthlyAbsenceHoursByUser(user_id);
+	}
+	
+	@GetMapping("/getMonthlySmartHoursByUser/{user_id}")
+	public int getMonthlySmartHoursByUser(@PathVariable Long user_id) {
+		return 0;
+	}
+	
 
 }

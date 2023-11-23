@@ -69,7 +69,6 @@ public class UserStateService {
 		State s = stateRepository.getReferenceById((long) 1);
 		List<User_State> us = userStateRepository.findAllByState(s);
 		
-		System.out.println(us);
 		List<User> usdate = new ArrayList<User>();
 		
 		for(User_State u : us) {
@@ -128,12 +127,17 @@ public class UserStateService {
 		
 		for(User_State u:us) {
 			user.add(u.getUser());
-			
-			
 		}
 		return user;
 	}
-	
 
+
+	public int getMonthlyAbsenceHoursByUser(Long user_id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	//conta le ore di assenza di una persona nel singolo mese
+	//conta le ore di smart di una persona nel singolo mese
 
 }
