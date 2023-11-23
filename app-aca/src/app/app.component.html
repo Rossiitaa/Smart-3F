@@ -21,13 +21,13 @@
     <h1>Calendario</h1>
     <div class="legende">
         <span class="box-smart"></span><p>Smart Working</p>
-        <span class="box-assenza"></span><p>Assenza</p>
+        <span class="box-assenza"></span><p>Absent</p>
     </div>
 <full-calendar [options]="calendarOptions"></full-calendar>
 </div>
 
 <div *ngIf="selectedEvent">
-    <h2>Dettagli Evento</h2>
-    <p>Nome: {{ selectedEvent.name }}</p>
-    <p>Cognome: {{ selectedEvent.surname }}</p>
+    <h2>Event detail</h2>
+    <p>Name: {{ selectedEvent.name }}</p>
+    <p>Surname: {{ selectedEvent.surname }}</p>
   </div>

@@ -64,7 +64,6 @@ export class AppComponent {
           extendedProps: {
             name: eventDetails.person.name,
             surname: eventDetails.person.surname,
-            // Aggiungi altri dettagli dell'evento in base alle tue esigenze
           },
         });
         calendarApi.unselect();
