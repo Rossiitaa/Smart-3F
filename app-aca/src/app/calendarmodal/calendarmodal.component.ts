@@ -45,11 +45,4 @@ export class CalendarmodalComponent {
     };
   }
 
-  updateEventBackground(): void {
-    if (this.eventTitle === 'Smart') {
-      this.eventContainerClass = 'bg-blue';
-    } else if (this.eventTitle === 'Assenza') {
-      this.eventContainerClass = 'bg-red';
-    }
-  }
 }

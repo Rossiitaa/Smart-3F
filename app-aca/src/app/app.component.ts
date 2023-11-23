@@ -33,6 +33,17 @@ export class AppComponent {
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
     plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
+    headerToolbar: {
+      center: 'addEventButton'
+    },
+    customButtons: {
+      addEventButton: {
+        text: 'Add Event',
+        click: (info: any) => {
+          this.openModal(info)
+        }
+      }
+    }
   };
 
   constructor(
