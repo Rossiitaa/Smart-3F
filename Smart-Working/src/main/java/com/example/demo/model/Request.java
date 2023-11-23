@@ -1,36 +1,36 @@
 package com.example.demo.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Request {
 	
-	private Date date;
-	private Integer ore;
+	private LocalDate date;
+	private Integer hour;
 	
 	public Request() {
 		
 	}
 
-	public Request(Date date, Integer ore) {
+	public Request(LocalDate date, Integer hour) {
 		super();
 		this.date = date;
-		this.ore = ore;
+		this.hour = hour;
 	}
 
-	public Date getData() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setData(Date data) {
-		this.date = data;
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
-	public Integer getOre() {
-		return ore;
+	public Integer getHour() {
+		return hour;
 	}
 
-	public void setOre(Integer ore) {
-		this.ore = ore;
+	public void setOre(Integer hour) {
+		this.hour = hour;
 	}
 	
 	

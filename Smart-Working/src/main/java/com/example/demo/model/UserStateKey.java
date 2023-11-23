@@ -2,12 +2,10 @@ package com.example.demo.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Embeddable
 public class UserStateKey implements Serializable{
@@ -17,14 +15,14 @@ public class UserStateKey implements Serializable{
 	@Column (name="state_id")
 	private Long stateid;
 	@Column(name = "date")
-	private Date date;
+	private LocalDate date;
 	
 	public UserStateKey() {
 		
 	}
 
 	
-	public UserStateKey(Long userid, Long stateid, Date date) {
+	public UserStateKey(Long userid, Long stateid, LocalDate date) {
 		super();
 		this.userid = userid;
 		this.stateid = stateid;
@@ -48,12 +46,12 @@ public class UserStateKey implements Serializable{
 	}
 
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

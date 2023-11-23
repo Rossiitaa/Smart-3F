@@ -1,9 +1,12 @@
 package com.example.demo.controller;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,15 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.service.annotation.DeleteExchange;
-import org.springframework.web.service.annotation.PutExchange;
 
 import com.example.demo.model.Request;
-import com.example.demo.model.State;
 import com.example.demo.model.User;
 import com.example.demo.model.User_State;
-import com.example.demo.service.StateService;
-import com.example.demo.service.UserService;
 import com.example.demo.service.UserStateService;
 
 @CrossOrigin(origins="http://localhost:4200")
@@ -73,14 +71,16 @@ public class UserStateController {
 		return userStateService.getAllSmart();
 	}
 	
-	@GetMapping("/getMonthlyAbsenceHoursByUser/{user_id}")
-	public int getMonthlyAbsenceHoursByUser(@PathVariable Long user_id) {
-		return userStateService.getMonthlyAbsenceHoursByUser(user_id);
+	@GetMapping("/getMonthlyAbsenceHoursByUser/{user_id}/{year}-{month}")
+	public int getMonthlyAbsenceHoursByUser(@PathVariable Long user_id, @PathVariable Integer year,@PathVariable Integer month) {
+		YearMonth yearmonth = YearMonth.of(year,month);	
+		return userStateService.getMonthlyAbsenceHoursByUser(user_id,yearmonth);
 	}
 	
-	@GetMapping("/getMonthlySmartHoursByUser/{user_id}")
-	public int getMonthlySmartHoursByUser(@PathVariable Long user_id) {
-		return 0;
+	@GetMapping("/getMonthlySmartHoursByUser/{user_id}/{year}-{month}")
+	public int getMonthlySmartHoursByUser(@PathVariable Long user_id, @PathVariable Integer year,@PathVariable Integer month) {
+		YearMonth yearmonth = YearMonth.of(year,month);	
+		return userStateService.getMonthlySmartByUser(user_id,yearmonth);
 	}
 	
 
