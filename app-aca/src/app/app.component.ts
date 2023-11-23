@@ -18,6 +18,7 @@ export class AppComponent {
   calendarVisible = true;
   currentEvents: EventApi[] = [];
   selectedEvent!: any;
+  events: EventInput[] = [];
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -27,11 +28,12 @@ export class AppComponent {
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
-    select: (info) => {
+    /* select: (info) => {
       this.openModal(info);
-    },
+    },*/
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
+    events: this.events,
     plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
     headerToolbar: {
       center: 'addEventButton'
@@ -63,22 +65,27 @@ export class AppComponent {
       if (eventDetails) {
         const calendarApi = info.view.calendar;
         const eventColor = eventDetails.eventTitle === 'Smart' ? 'blue' : 'red';
-
+        const date = eventDetails.selectedDate
+        const dateFormatted = new Date(date + 'T00:00:00')
+        console.log(date)
         const newEvent: EventInput = {
           id: createEventId(),
           title: eventDetails.eventTitle,
-          start: info.startStr,
+          start: dateFormatted,
           end: info.endStr,
-          allDay: info.allDay,
+          allDay: true,
           extendedProps: {
             name: eventDetails.person.name,
             surname: eventDetails.person.surname,
           },
           backgroundColor: eventColor,
+
         };
 
+        this.events = [...this.events, newEvent]; 
         calendarApi.addEvent(newEvent);
         calendarApi.unselect();
+        this.changeDetector.detectChanges();
       }
     });
   }

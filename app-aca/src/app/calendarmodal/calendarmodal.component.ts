@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DateSelectArg } from '@fullcalendar/core';
 import { createEventId } from '../event-util';
 
+
 @Component({
   selector: 'app-calendarmodal',
   templateUrl: './calendarmodal.component.html',
@@ -12,10 +13,10 @@ import { createEventId } from '../event-util';
 export class CalendarmodalComponent {
   hours: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   eventTitle: string = '';
-  selectedDate: Date;
+  selectedDate: any;
   selectedPerson: any;
   selectedHour: number = 1;
-  eventContainerClass: string = ''
+  eventContainerClass: string = '';
   people: any[] = [
     { name: "Mario", surname: "Velotto" },
     { name: "Francesco Pio", surname: "Parisi" }
@@ -25,7 +26,6 @@ export class CalendarmodalComponent {
     public dialogRef: MatDialogRef<CalendarmodalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.selectedDate = data.date;
     this.selectedPerson = this.people[0]
   }
 
@@ -41,7 +41,8 @@ export class CalendarmodalComponent {
       },
       eventTitle: this.eventTitle,
       hour: this.selectedHour,
-      eventColor: this.eventContainerClass
+      eventColor: this.eventContainerClass,
+      selectedDate: this.selectedDate,
     };
   }
 
