@@ -23,3 +23,14 @@
     border-radius: 10px;
     margin: 5px;
 }
+.event-detail {
+    padding: 25px;
+    width: fit-content;
+}
+.cont-detail {
+    background-color: #ebeefa;
+    padding: 30px;
+    color: black;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}

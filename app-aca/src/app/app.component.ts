@@ -1,12 +1,7 @@
 // app.component.ts
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  CalendarOptions,
-  DateSelectArg,
-  EventApi,
-  EventClickArg,
-} from '@fullcalendar/core';
+import { CalendarOptions, EventApi, EventClickArg, EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
@@ -21,6 +16,9 @@ import { createEventId } from './event-util';
 })
 export class AppComponent {
   calendarVisible = true;
+  currentEvents: EventApi[] = [];
+  selectedEvent!: any;
+
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     height: 'auto',
@@ -37,14 +35,12 @@ export class AppComponent {
     plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
   };
 
-  currentEvents: EventApi[] = [];
-
   constructor(
     public dialog: MatDialog,
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  selectedEvent!: any;
+
 
   openModal(info: any): any {
     const dialogRef = this.dialog.open(CalendarmodalComponent, {
@@ -55,7 +51,9 @@ export class AppComponent {
     dialogRef.afterClosed().subscribe((eventDetails: any) => {
       if (eventDetails) {
         const calendarApi = info.view.calendar;
-        calendarApi.addEvent({
+        const eventColor = eventDetails.eventTitle === 'Smart' ? 'blue' : 'red';
+
+        const newEvent: EventInput = {
           id: createEventId(),
           title: eventDetails.eventTitle,
           start: info.startStr,
@@ -65,13 +63,16 @@ export class AppComponent {
             name: eventDetails.person.name,
             surname: eventDetails.person.surname,
           },
-        });
+          backgroundColor: eventColor,
+        };
+
+        calendarApi.addEvent(newEvent);
         calendarApi.unselect();
       }
     });
   }
 
-  handleEventClick(clickInfo: EventClickArg) {
+  handleEventClick(clickInfo: any) {
     this.showEventDetails(clickInfo);
   }
 
@@ -86,5 +87,5 @@ export class AppComponent {
       surname: eventGot.event.extendedProps['surname']
     };
   }
-  
+
 }

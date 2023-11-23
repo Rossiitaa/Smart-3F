@@ -15,6 +15,7 @@ export class CalendarmodalComponent {
   selectedDate: Date;
   selectedPerson: any;
   selectedHour: number = 1;
+  eventContainerClass: string = ''
   people: any[] = [
     { name: "Mario", surname: "Velotto" },
     { name: "Francesco Pio", surname: "Parisi" }
@@ -40,6 +41,15 @@ export class CalendarmodalComponent {
       },
       eventTitle: this.eventTitle,
       hour: this.selectedHour,
+      eventColor: this.eventContainerClass
     };
+  }
+
+  updateEventBackground(): void {
+    if (this.eventTitle === 'Smart') {
+      this.eventContainerClass = 'bg-blue';
+    } else if (this.eventTitle === 'Assenza') {
+      this.eventContainerClass = 'bg-red';
+    }
   }
 }
