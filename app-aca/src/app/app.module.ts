@@ -12,13 +12,15 @@ import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ChoiceComponent } from './choice/choice.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CalendarmodalComponent,
-    ChoiceComponent
+    ChoiceComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
