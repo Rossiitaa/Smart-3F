@@ -11,12 +11,14 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { ChoiceComponent } from './choice/choice.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarmodalComponent
+    CalendarmodalComponent,
+    ChoiceComponent
   ],
   imports: [
     BrowserModule,

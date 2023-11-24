@@ -42,7 +42,6 @@ export class CalendarmodalComponent {
       eventTitle: this.eventTitle,
       hour: this.selectedHour,
       eventColor: this.eventContainerClass,
-      selectedDate: this.selectedDate,
     };
   }
 

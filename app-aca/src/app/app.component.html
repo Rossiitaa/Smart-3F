@@ -30,7 +30,7 @@
   <full-calendar [options]="calendarOptions"></full-calendar>
 </div>
 
-<div *ngIf="selectedEvent" class="event-detail">
+<div *ngIf="showEvents" class="event-detail">
   <div class="cont-detail">
     <h2>Event detail</h2>
     <p>Name: {{ selectedEvent.name }}</p>
