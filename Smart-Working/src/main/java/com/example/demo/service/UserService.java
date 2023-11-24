@@ -24,9 +24,9 @@ public class UserService {
 
 	public User updateUser(long id,User user) {
 		User u=userRepository.getReferenceById(id);
-		u.setCognome(user.getCognome());
-		u.setNome(user.getNome());
-		u.setStates(user.getStates());
+		u.setLastname(user.getLastname());
+		u.setFirstname(user.getFirstname());
+		u.setUser_states(user.getUser_states());
 		return userRepository.save(u);
 	}
 

@@ -17,8 +17,8 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long user_id;
-	private String nome;
-	private String cognome;
+	private String firstname;
+	private String lastname;
 	
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
@@ -29,44 +29,55 @@ public class User {
 		
 	}
 
-	public User(String nome, String cognome, List<User_State> user_states) {
-		super();
-		this.nome = nome;
-		this.cognome = cognome;
+
+	public User(String firstname, String lastname, List<User_State> user_states) {
+
+		this.firstname = firstname;
+		this.lastname = lastname;
 		this.user_states = user_states;
 	}
 
-	public Long getId() {
+
+	public Long getUser_id() {
 		return user_id;
 	}
 
-	public void setId(Long id) {
-		this.user_id = id;
+
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
 	}
 
-	public String getNome() {
-		return nome;
+
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getCognome() {
-		return cognome;
+
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
-	public List<User_State> getStates() {
+
+	public List<User_State> getUser_states() {
 		return user_states;
 	}
 
-	public void setStates(List<User_State> states) {
-		this.user_states = states;
+
+	public void setUser_states(List<User_State> user_states) {
+		this.user_states = user_states;
 	}
+
+
 
 	
 
