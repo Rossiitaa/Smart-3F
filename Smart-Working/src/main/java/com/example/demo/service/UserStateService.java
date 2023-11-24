@@ -79,6 +79,11 @@ public class UserStateService {
 		
 		return usdate;
 	}
+	
+	public List<Object> getAllAbsentByDateCustom(Date date) {
+		// TODO Auto-generated method stub
+		return userStateRepository.findAllAbsentByDateCustom(date);
+	}
 
 	
 
@@ -98,6 +103,11 @@ public class UserStateService {
 		}
 		return user;
 	}
+	
+	public List<Object> getAllSmartByDateCustom(Date date) {
+		// TODO Auto-generated method stub
+		return userStateRepository.findAllSmartByDateCustom(date);
+	}
 
 
 	public List<User> getAllAbsent() {
@@ -116,7 +126,7 @@ public class UserStateService {
 		}
 		return user;
 	}
-
+	
 
 	public List<User> getAllSmart() {
 		// TODO Auto-generated method stub

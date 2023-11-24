@@ -53,18 +53,28 @@ public class UserStateController {
 		return userStateService.getAllAbsentByDate(date);
 	}
 	
-	//getallAbsent
-	//getAllSmart
-	//getAllSmartbyDate
+	@GetMapping("/getAllAbsentsByDateCustom/{date}")
+	public List<Object> getAllAbsentsByDateCustom(@PathVariable Date date){
+		return userStateService.getAllAbsentByDateCustom(date);
+	}
+	
+
 	@GetMapping("/getAllSmartByDate/{date}")
 	public List<User> getAllSmartByDate(@PathVariable Date date){
 		return userStateService.getAllSmartByDate(date);
+	}
+	
+	@GetMapping("/getAllSmartByDateCustom/{date}")
+	public List<Object> getAllSmartByDateCustom(@PathVariable Date date){
+		return userStateService.getAllSmartByDateCustom(date);
 	}
 	
 	@GetMapping("/getAllAbsent")
 	public List<User> getAllAbsent(){
 		return userStateService.getAllAbsent();
 	}
+	
+	
 	
 	@GetMapping("/getAllSmart")
 	public List<User> getAllSmart(){
