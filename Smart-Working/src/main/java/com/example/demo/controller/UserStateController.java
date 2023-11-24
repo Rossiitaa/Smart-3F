@@ -6,7 +6,6 @@ import java.time.YearMonth;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,8 +79,19 @@ public class UserStateController {
 	@GetMapping("/getMonthlySmartHoursByUser/{user_id}/{year}-{month}")
 	public int getMonthlySmartHoursByUser(@PathVariable Long user_id, @PathVariable Integer year,@PathVariable Integer month) {
 		YearMonth yearmonth = YearMonth.of(year,month);	
-		return userStateService.getMonthlySmartByUser(user_id,yearmonth);
+		return userStateService.getMonthlySmartByUserHours(user_id,yearmonth);
 	}
+	
+	@GetMapping("/getMonthlySmartByUser/{user_id}/{month}")
+	public List<Object> getMonthlySmartByUser(@PathVariable long user_id, @PathVariable int month){
+		return userStateService.getMonthlySmartByUser(user_id, month);
+	}
+	
+	@GetMapping("/getMonthlyAbsenceByUser/{user_id}/{month}")
+	public List<Object> getMonthlyAbsenceByUser(@PathVariable long user_id, @PathVariable int month){
+		return userStateService.getMonthlyAbsenceByUser(user_id, month);
+	}
+	
 	
 
 }
