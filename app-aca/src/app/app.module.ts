@@ -13,6 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ChoiceComponent } from './choice/choice.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import {HttpClientModule} from '@angular/common/http'
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { CalendarComponent } from './calendar/calendar.component';
     MatInputModule,
     MatDatepickerModule,
     FormsModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
