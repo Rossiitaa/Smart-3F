@@ -23,7 +23,7 @@ export class CalendarComponent {
   calendarVisible = true;
   currentEvents: EventApi[] = [];
   selectedEvent!: any;
-  events: EventInput[] = [];
+  events: any[] = [];
   showEvents = false
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -70,7 +70,7 @@ export class CalendarComponent {
         const calendarApi = info.view.calendar;
         const eventColor = eventDetails.eventTitle === 'Smart' ? 'blue' : 'red';
 
-        const newEvent: EventInput = {
+        const newEvent: any = {
           id: createEventId(),
           title: eventDetails.eventTitle,
           start: info.startStr,
@@ -83,11 +83,27 @@ export class CalendarComponent {
           backgroundColor: eventColor,
         };
 
+        //this.events = [...this.events, newEvent];
+     
+        console.log(this.events.toString);
+        let flag = false;
+        for (const event of this.events) {
+          if(event.start == newEvent.start && event.title == newEvent.title){
+            flag = true;
+          }
+
+        }
+        if(!flag){
+          calendarApi.addEvent(newEvent);
+          calendarApi.unselect();
+          this.changeDetector.detectChanges();
+        }
         this.events = [...this.events, newEvent];
-        calendarApi.addEvent(newEvent);
-        calendarApi.unselect();
-        this.changeDetector.detectChanges();
+        console.log(this.events);
+        console.log(newEvent);
+        
       }
+      
     });
   }
 
