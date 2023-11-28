@@ -30,10 +30,10 @@
     <full-calendar [options]="calendarOptions"></full-calendar>
   </div>
   
-  <div *ngIf="showEvents" class="event-detail">
-    <div class="cont-detail">
+  <div *ngIf="events" class="event-detail">
+    <div class="cont-detail" *ngFor="let people of events">
       <h2>Event detail</h2>
-      <p>Name: {{ selectedEvent.name }}</p>
-      <p>Surname: {{ selectedEvent.surname }}</p>
+      <p>Name: {{ people.extendedProps.name }}</p>
+      <p>Surname: {{ people.extendedProps.surname }}</p>
     </div>
   </div>

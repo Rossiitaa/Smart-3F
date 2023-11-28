@@ -3,6 +3,7 @@ import { Component, ElementRef, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DateSelectArg } from '@fullcalendar/core';
 import { createEventId } from '../event-util';
+import { SharingService } from '../services/sharing.service';
 
 
 @Component({
@@ -21,11 +22,11 @@ export class CalendarmodalComponent {
     { name: "Mario", surname: "Velotto" },
     { name: "Francesco Pio", surname: "Parisi" }
   ];
-
+  listPerson! : any[];
   constructor(
     public dialogRef: MatDialogRef<CalendarmodalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  private sharingService: SharingService) {
     this.selectedPerson = this.people[0]
   }
 
@@ -34,6 +35,7 @@ export class CalendarmodalComponent {
   }
 
   getEventData(): any {
+    this.listPerson = this.sharingService.getPeople();
     return {
       person: {
         name: this.selectedPerson.name,
@@ -44,5 +46,6 @@ export class CalendarmodalComponent {
       eventColor: this.eventContainerClass,
     };
   }
+
 
 }

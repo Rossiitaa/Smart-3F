@@ -13,6 +13,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { ChoiceComponent } from '../choice/choice.component';
 import { CalendarmodalComponent } from '../calendarmodal/calendarmodal.component';
 import { createEventId } from '../event-util';
+import { SharingService } from '../services/sharing.service';
 
 @Component({
   selector: 'app-calendar',
@@ -24,6 +25,8 @@ export class CalendarComponent {
   currentEvents: EventApi[] = [];
   selectedEvent!: any;
   events: any[] = [];
+  smartUsers: any[] = [];
+  absentUsers: any[] = [];
   showEvents = false
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -41,12 +44,13 @@ export class CalendarComponent {
     events: this.events,
     plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
   };
-
+  listPerson! : any[];
   constructor(
     public dialog: MatDialog,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private sharingService: SharingService
   ) {}
-
+    
   choiceModal(info: any): any {
     const dialogRef = this.dialog.open(ChoiceComponent, {
       width: '300px',
@@ -66,6 +70,7 @@ export class CalendarComponent {
     });
 
     dialogRef.afterClosed().subscribe((eventDetails: any) => {
+      console.log(eventDetails)
       if (eventDetails) {
         const calendarApi = info.view.calendar;
         const eventColor = eventDetails.eventTitle === 'Smart' ? 'blue' : 'red';
@@ -89,6 +94,7 @@ export class CalendarComponent {
         let flag = false;
         for (const event of this.events) {
           if(event.start == newEvent.start && event.title == newEvent.title){
+            
             flag = true;
           }
 
@@ -101,7 +107,7 @@ export class CalendarComponent {
         this.events = [...this.events, newEvent];
         console.log(this.events);
         console.log(newEvent);
-        
+        this.sharingService.setPeople(this.events);
       }
       
     });
