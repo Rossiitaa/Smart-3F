@@ -4,5 +4,5 @@ import { UserState } from "./user-state"
 export class State {
     state_id!: number
     state!: States
-    user_states!: UserState
+    user_states!: UserState[]
 }

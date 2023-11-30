@@ -72,7 +72,6 @@ export class CalendarComponent {
     });
 
     dialogRef.afterClosed().subscribe((eventDetails: any) => {
-      console.log(eventDetails)
       if (eventDetails) {
         const calendarApi = info.view.calendar;
         const eventColor = eventDetails.eventTitle === 'Smart' ? 'blue' : 'red';
@@ -90,10 +89,7 @@ export class CalendarComponent {
           },
           backgroundColor: eventColor,
         };
-
-        //this.events = [...this.events, newEvent];
      
-        console.log(this.events.toString);
         let flag = false;
         for (const event of this.events) {
           if(event.start == newEvent.start && event.title == newEvent.title){
@@ -108,8 +104,6 @@ export class CalendarComponent {
           this.changeDetector.detectChanges();
         }
         this.events = [...this.events, newEvent];
-        console.log(this.events);
-        console.log(newEvent);
         this.sharingService.setPeople(this.events);
       }
       
@@ -132,7 +126,7 @@ export class CalendarComponent {
     };
   }
 
-  onDetailClick(id: number){
-    this.router.navigate(['/detail', id])
+  onDetailClick(name: string, surname: string){
+    this.router.navigate(['/detail', name, surname]);
   }
 }

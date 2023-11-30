@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SharingService } from '../services/sharing.service';
 
 @Component({
   selector: 'app-detail',
@@ -7,12 +8,18 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-
   person: any;
+  name: any
+  surname: any
 
-  constructor(private aRoute: ActivatedRoute){}
+  constructor(
+    private route: ActivatedRoute,
+    private sharingService: SharingService
+  ) {}
 
-  ngOnInit(){
-    this.person = this.aRoute.snapshot.params['id']
+  ngOnInit(): void {
+    this.name = this.route.snapshot.params['name']
+    this.surname = this.route.snapshot.params['surname']
+    
   }
 }

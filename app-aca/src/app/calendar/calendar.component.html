@@ -31,9 +31,9 @@
 </div>
 
 <div *ngIf="events" class="event-detail">
-  <h2>Event detail</h2>
-  <ul class="cont-detail" *ngFor="let people of events">
-    <li (click)="onDetailClick(people.extendedProps.id)">Name: {{ people.extendedProps.name }}</li>
+  <h2 *ngIf="showEvents">Event detail</h2>
+  <ul class="cont-detail" *ngFor="let people of events" (click)="onDetailClick(people.extendedProps.name, people.extendedProps.surname)">
+    <li>Name: {{ people.extendedProps.name }}</li>
     <li>Surname: {{ people.extendedProps.surname }}</li>
   </ul>
 </div>

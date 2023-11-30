@@ -10,7 +10,6 @@ export class ChoiceComponent {
   constructor(public dialogRef: MatDialogRef<ChoiceComponent>) {}
 
   chooseOption(option: string): void {
-    console.log(option);
     this.dialogRef.close(option);
   }
 }
