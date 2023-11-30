@@ -13,7 +13,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ChoiceComponent } from './choice/choice.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
+import { DetailComponent } from './detail/detail.component'
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import {HttpClientModule} from '@angular/common/http'
     AppComponent,
     CalendarmodalComponent,
     ChoiceComponent,
-    CalendarComponent
+    CalendarComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +32,7 @@ import {HttpClientModule} from '@angular/common/http'
     BrowserAnimationsModule,
     MatDialogModule,
     MatFormFieldModule,
+    AppRoutingModule,
     MatSelectModule,
     MatInputModule,
     MatDatepickerModule,

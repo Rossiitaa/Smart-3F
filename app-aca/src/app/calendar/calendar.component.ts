@@ -14,6 +14,7 @@ import { ChoiceComponent } from '../choice/choice.component';
 import { CalendarmodalComponent } from '../calendarmodal/calendarmodal.component';
 import { createEventId } from '../event-util';
 import { SharingService } from '../services/sharing.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
@@ -48,7 +49,8 @@ export class CalendarComponent {
   constructor(
     public dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
-    private sharingService: SharingService
+    private sharingService: SharingService,
+    private router: Router
   ) {}
     
   choiceModal(info: any): any {
@@ -82,6 +84,7 @@ export class CalendarComponent {
           end: info.endStr,
           allDay: false,
           extendedProps: {
+            id: eventDetails.person.id,
             name: eventDetails.person.name,
             surname: eventDetails.person.surname,
           },
@@ -127,5 +130,9 @@ export class CalendarComponent {
       name: eventGot.event.extendedProps['name'],
       surname: eventGot.event.extendedProps['surname'],
     };
+  }
+
+  onDetailClick(id: number){
+    this.router.navigate(['/detail', id])
   }
 }

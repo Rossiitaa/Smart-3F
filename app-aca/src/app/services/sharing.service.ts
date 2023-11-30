@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class SharingService {
   people: any[] = [];
-
+  
   constructor() {}
 
   setPeople(people: any[]): void {
@@ -14,6 +14,10 @@ export class SharingService {
   }
   getPeople(): any[] { 
     return this.people;
+  }
+
+  getPersonById(id: number){
+
   }
 
 }

@@ -5,7 +5,6 @@ import { DateSelectArg } from '@fullcalendar/core';
 import { createEventId } from '../event-util';
 import { SharingService } from '../services/sharing.service';
 
-
 @Component({
   selector: 'app-calendarmodal',
   templateUrl: './calendarmodal.component.html',
@@ -19,15 +18,16 @@ export class CalendarmodalComponent {
   selectedHour: number = 1;
   eventContainerClass: string = '';
   people: any[] = [
-    { name: "Mario", surname: "Velotto" },
-    { name: "Francesco Pio", surname: "Parisi" }
+    { id: 1, name: 'Mario', surname: 'Velotto' },
+    { id: 2, name: 'Francesco Pio', surname: 'Parisi' },
   ];
-  listPerson! : any[];
+  listPerson!: any[];
   constructor(
     public dialogRef: MatDialogRef<CalendarmodalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  private sharingService: SharingService) {
-    this.selectedPerson = this.people[0]
+    private sharingService: SharingService
+  ) {
+    this.selectedPerson = this.people[0];
   }
 
   onNoClick(): void {
@@ -38,14 +38,13 @@ export class CalendarmodalComponent {
     this.listPerson = this.sharingService.getPeople();
     return {
       person: {
+        id: this.selectedPerson.id,
         name: this.selectedPerson.name,
-        surname: this.selectedPerson.surname
+        surname: this.selectedPerson.surname,
       },
       eventTitle: this.eventTitle,
       hour: this.selectedHour,
       eventColor: this.eventContainerClass,
     };
   }
-
-
 }
