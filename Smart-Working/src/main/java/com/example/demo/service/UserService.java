@@ -27,6 +27,12 @@ public class UserService {
 		u.setLastname(user.getLastname());
 		u.setFirstname(user.getFirstname());
 		u.setUser_states(user.getUser_states());
+		u.setEmail(user.getEmail());
+		u.setPhoneNumber(user.getPhoneNumber());
+		u.setQualification(user.getQualification());
+		u.setResidency(user.getResidency());
+		u.setAcademy_end_date(user.getAcademy_end_date());
+		u.setAcademy_start_date(user.getAcademy_start_date());
 		return userRepository.save(u);
 	}
 

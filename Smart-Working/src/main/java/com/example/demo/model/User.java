@@ -1,8 +1,7 @@
 package com.example.demo.model;
 
+import java.time.LocalDate;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -17,9 +16,8 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long user_id;
-	private String firstname;
-	private String lastname;
-	
+	private String firstname,lastname,email,phoneNumber,qualification,residency;
+	private LocalDate academy_start_date,academy_end_date;
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<User_State> user_states;
@@ -30,11 +28,96 @@ public class User {
 	}
 
 
-	public User(String firstname, String lastname, List<User_State> user_states) {
 
+
+
+	public LocalDate getAcademy_start_date() {
+		return academy_start_date;
+	}
+
+
+
+
+
+	public void setAcademy_start_date(LocalDate academy_start_date) {
+		this.academy_start_date = academy_start_date;
+	}
+
+
+
+
+
+	public LocalDate getAcademy_end_date() {
+		return academy_end_date;
+	}
+
+
+
+
+
+	public void setAcademy_end_date(LocalDate academy_end_date) {
+		this.academy_end_date = academy_end_date;
+	}
+
+
+
+
+
+	public User(String firstname, String lastname, String email, String phoneNumber, String qualification,
+			String residency, LocalDate academy_start_date, LocalDate academy_end_date, List<User_State> user_states) {
+		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.qualification = qualification;
+		this.residency = residency;
+		this.academy_start_date = academy_start_date;
+		this.academy_end_date = academy_end_date;
 		this.user_states = user_states;
+	}
+
+
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+
+	public String getQualification() {
+		return qualification;
+	}
+
+
+	public void setQualification(String qualification) {
+		this.qualification = qualification;
+	}
+
+
+	public String getResidency() {
+		return residency;
+	}
+
+
+	public void setResidency(String residency) {
+		this.residency = residency;
 	}
 
 
