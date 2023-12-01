@@ -16,13 +16,27 @@ import com.example.demo.model.User_State;
 public interface UserStateRepository extends JpaRepository<User_State, UserStateKey>{
 
 	
-	@Query(value="SELECT u.nome, u.cognome FROM User u " +
-	        "INNER JOIN User_State us ON u.user_id = us.user_id " +
-	        "INNER JOIN State s ON us.state_id = s.state_id " +
-	        "WHERE us.date = :date AND s.state = 'ASSENZA'", nativeQuery = true)
-	List<User_State> findAllAbsentByDate(@Param("date") Date date);
 
 	List<User_State> findAllByState(State state);
+	
+
+	@Query(value = "SELECT firstname,lastname,date \r\n"
+			+ "FROM user \r\n"
+			+ " INNER JOIN user_state ON user.user_id = user_state.user_id\r\n"
+			+ " INNER JOIN state ON user_state.state_id = state.state_id\r\n"
+			+ "WHERE state.state='ASSENZA' AND user_state.date = :date", nativeQuery = true)
+	List<Object> findAllAbsentByDateCustom(@Param("date") Date date);
+	
+	@Query(value = "SELECT firstname,lastname,date \r\n"
+			+ "FROM user \r\n"
+			+ " INNER JOIN user_state ON user.user_id = user_state.user_id\r\n"
+			+ " INNER JOIN state ON user_state.state_id = state.state_id\r\n"
+			+ "WHERE state.state='SMART_WORKING' AND user_state.date = :date", nativeQuery = true)
+	List<Object> findAllSmartByDateCustom(@Param("date") Date date);
+	
+	
+	
+	
 
 	
 	@Query(value="select user.*, user_state.date from user JOIN user_state ON user_state.user_id = user.user_id \r\n"
