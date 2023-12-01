@@ -16,4 +16,5 @@ export class SharingService {
   getPeople(): any[] {
     return this.people;
   }
+
 }

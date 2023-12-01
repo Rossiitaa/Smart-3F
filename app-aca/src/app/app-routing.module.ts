@@ -6,7 +6,7 @@ import { DetailComponent } from './detail/detail.component';
 const routes: Routes = [
   {path: 'calendar', component: CalendarComponent},
   {path: '', redirectTo: '/calendar', pathMatch: 'full'},
-  {path: 'detail/:name/:surname', component: DetailComponent}
+  {path: 'detail', component: DetailComponent}
 ];
 
 @NgModule({

@@ -9,17 +9,13 @@ import { SharingService } from '../services/sharing.service';
 })
 export class DetailComponent implements OnInit {
   person: any;
-  name: any
-  surname: any
+  id!: number;
 
   constructor(
-    private route: ActivatedRoute,
     private sharingService: SharingService
   ) {}
 
   ngOnInit(): void {
-    this.name = this.route.snapshot.params['name']
-    this.surname = this.route.snapshot.params['surname']
-    
+    this.person = this.sharingService.getPeople()
   }
 }

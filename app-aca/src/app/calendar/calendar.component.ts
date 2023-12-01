@@ -92,14 +92,14 @@ export class CalendarComponent {
      
         let flag = false;
         for (const event of this.events) {
-          if(event.start == newEvent.start && event.title == newEvent.title){
-            
+          if(event.start == newEvent.start && event.title == newEvent.title){           
             flag = true;
           }
 
         }
         if(!flag){
           calendarApi.addEvent(newEvent);
+          this.showEvents = true
           calendarApi.unselect();
           this.changeDetector.detectChanges();
         }
@@ -126,7 +126,8 @@ export class CalendarComponent {
     };
   }
 
-  onDetailClick(name: string, surname: string){
-    this.router.navigate(['/detail', name, surname]);
+  onDetailClick(people: any){
+    this.sharingService.setPeople(people);
+    this.router.navigate(['/detail']);
   }
 }
