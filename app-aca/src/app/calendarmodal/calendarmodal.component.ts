@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DateSelectArg } from '@fullcalendar/core';
 import { createEventId } from '../event-util';
 import { SharingService } from '../services/sharing.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-calendarmodal',
@@ -25,9 +26,20 @@ export class CalendarmodalComponent {
   constructor(
     public dialogRef: MatDialogRef<CalendarmodalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private sharingService: SharingService
+    private sharingService: SharingService,
+    private userService: UserService
   ) {
     this.selectedPerson = this.people[0];
+  }
+
+  ngOnInit(){
+    this.getAllUsers()
+  }
+
+  getAllUsers(){
+    this.userService.getUsers().subscribe({
+      next: result => this.listPerson = result
+    })
   }
 
   onNoClick(): void {
@@ -35,7 +47,6 @@ export class CalendarmodalComponent {
   }
 
   getEventData(): any {
-    this.listPerson = this.sharingService.getPeople();
     return {
       person: {
         id: this.selectedPerson.id,
