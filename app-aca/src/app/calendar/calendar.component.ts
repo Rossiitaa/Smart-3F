@@ -29,6 +29,7 @@ export class CalendarComponent {
   smartUsers: any[] = [];
   absentUsers: any[] = [];
   showEvents = false
+  selectedUser!: any;
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     height: 'auto',
@@ -75,7 +76,7 @@ export class CalendarComponent {
       if (eventDetails) {
         const calendarApi = info.view.calendar;
         const eventColor = eventDetails.eventTitle === 'Smart' ? 'blue' : 'red';
-
+        this.selectedUser = eventDetails.person;
         const newEvent: any = {
           id: createEventId(),
           title: eventDetails.eventTitle,
@@ -83,9 +84,9 @@ export class CalendarComponent {
           end: info.endStr,
           allDay: false,
           extendedProps: {
-            id: eventDetails.person.id,
-            name: eventDetails.person.name,
-            surname: eventDetails.person.surname,
+            id: eventDetails.person.user_id,
+            name: eventDetails.person.firstname,
+            surname: eventDetails.person.lastname,
           },
           backgroundColor: eventColor,
         };

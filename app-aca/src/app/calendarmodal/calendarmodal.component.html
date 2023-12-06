@@ -5,12 +5,13 @@
 
     <mat-form-field class="w-100">
       <mat-label>Person</mat-label>
-      <mat-select [(ngModel)]="selectedPerson">
-        <mat-option *ngFor="let person of people" [value]="person">
-          {{ person.name }} {{ person.surname }}
+      <mat-select [(ngModel)]="selectedPerson" *ngIf="listPerson">
+        <mat-option *ngFor="let person of listPerson" [value]="person">
+          {{ person.firstname }} {{ person.lastname }}
         </mat-option>
       </mat-select>
     </mat-form-field>
+
 
     <div class="row">
       <div class="col-6">
@@ -35,8 +36,8 @@
     <mat-form-field class="example-form-field w-100">
       <mat-label>Notes</mat-label>
       <input matInput type="text">
-    </mat-form-field>   
-    
+    </mat-form-field>
+
   </mat-dialog-content>
 
   <mat-dialog-actions class="button-cont">

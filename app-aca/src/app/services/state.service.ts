@@ -6,7 +6,7 @@ import { State } from '../model/state';
   providedIn: 'root'
 })
 export class StateService {
-  url: string = 'http://localhost:8080/';
+  url: string = 'http://localhost:8080';
   constructor(private http: HttpClient) { }
 
   getStates(){

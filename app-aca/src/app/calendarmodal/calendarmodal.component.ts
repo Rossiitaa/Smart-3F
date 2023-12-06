@@ -1,10 +1,9 @@
 // calendarmodal.component.ts
-import { Component, ElementRef, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DateSelectArg } from '@fullcalendar/core';
-import { createEventId } from '../event-util';
 import { SharingService } from '../services/sharing.service';
 import { UserService } from '../services/user.service';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-calendarmodal',
@@ -18,19 +17,17 @@ export class CalendarmodalComponent {
   selectedPerson: any;
   selectedHour: number = 1;
   eventContainerClass: string = '';
-  people: any[] = [
+  /* people: any[] = [
     { id: 1, name: 'Mario', surname: 'Velotto' },
     { id: 2, name: 'Francesco Pio', surname: 'Parisi' },
-  ];
-  listPerson!: any[];
+  ]; */
+  listPerson!: User[];
   constructor(
     public dialogRef: MatDialogRef<CalendarmodalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private sharingService: SharingService,
     private userService: UserService
-  ) {
-    this.selectedPerson = this.people[0];
-  }
+  ) {}
 
   ngOnInit(){
     this.getAllUsers()
@@ -47,15 +44,19 @@ export class CalendarmodalComponent {
   }
 
   getEventData(): any {
-    return {
-      person: {
-        id: this.selectedPerson.id,
-        name: this.selectedPerson.name,
-        surname: this.selectedPerson.surname,
-      },
-      eventTitle: this.eventTitle,
-      hour: this.selectedHour,
-      eventColor: this.eventContainerClass,
-    };
+    if (this.selectedPerson) {
+      return {
+        person: {
+          id: this.selectedPerson.user_id,
+          name: this.selectedPerson.firstname,
+          surname: this.selectedPerson.lastname,
+        },
+        eventTitle: this.eventTitle,
+        hour: this.selectedHour,
+        eventColor: this.eventContainerClass,
+      };
+    }
+    return null;
   }
+  
 }

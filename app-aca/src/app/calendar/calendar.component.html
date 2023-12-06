@@ -30,8 +30,9 @@
 <div *ngIf="events" class="event-detail">
   <h2 *ngIf="showEvents">Event detail</h2>
   <ul class="cont-detail" *ngFor="let people of events" (click)="onDetailClick(people.extendedProps)">
-    <li>Name: {{ people.extendedProps.name }}</li>
-    <li>Surname: {{ people.extendedProps.surname }}</li>
+    <li>Name: {{ people.extendedProps.firstname }}</li>
+    <li>Surname: {{ people.extendedProps.lastname }}</li>
   </ul>
 </div>
+
 
