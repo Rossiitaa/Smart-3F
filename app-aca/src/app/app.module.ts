@@ -16,6 +16,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import {HttpClientModule} from '@angular/common/http';
 import { DetailComponent } from './detail/detail.component'
 import { AppRoutingModule } from './app-routing.module';
+import { RemoveUnderscorePipe } from './pipes/remove-underscore.pipe';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AppRoutingModule } from './app-routing.module';
     CalendarmodalComponent,
     ChoiceComponent,
     CalendarComponent,
-    DetailComponent
+    DetailComponent,
+    RemoveUnderscorePipe
   ],
   imports: [
     BrowserModule,

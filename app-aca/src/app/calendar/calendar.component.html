@@ -27,12 +27,13 @@
   <full-calendar [options]="calendarOptions"></full-calendar>
 </div>
 
-<div *ngIf="events" class="event-detail">
+<div *ngIf="events && showEvents" class="event-detail">
   <h2 *ngIf="showEvents">Event detail</h2>
-  <ul class="cont-detail" *ngFor="let people of events" (click)="onDetailClick(people.extendedProps)">
-    <li>Name: {{ people.extendedProps.firstname }}</li>
-    <li>Surname: {{ people.extendedProps.lastname }}</li>
+  <ul class="cont-detail">
+    <li *ngFor="let people of events" (click)="onDetailClick(people.extendedProps)">
+      <span>Name: {{ people.extendedProps.name }}</span><br>
+      <span>Surname: {{ people.extendedProps.surname }}</span>
+    </li>
   </ul>
 </div>
-
 

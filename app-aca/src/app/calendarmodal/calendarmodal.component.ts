@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SharingService } from '../services/sharing.service';
 import { UserService } from '../services/user.service';
 import { User } from '../model/user';
+import { StateService } from '../services/state.service';
+import { State } from '../model/state';
 
 @Component({
   selector: 'app-calendarmodal',
@@ -17,25 +19,29 @@ export class CalendarmodalComponent {
   selectedPerson: any;
   selectedHour: number = 1;
   eventContainerClass: string = '';
-  /* people: any[] = [
-    { id: 1, name: 'Mario', surname: 'Velotto' },
-    { id: 2, name: 'Francesco Pio', surname: 'Parisi' },
-  ]; */
   listPerson!: User[];
+  states!: any[];
   constructor(
     public dialogRef: MatDialogRef<CalendarmodalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private sharingService: SharingService,
-    private userService: UserService
+    private userService: UserService,
+    private stateService: StateService
   ) {}
 
   ngOnInit(){
     this.getAllUsers()
+    this.getAllStates()
   }
 
   getAllUsers(){
     this.userService.getUsers().subscribe({
       next: result => this.listPerson = result
+    })
+  }
+
+  getAllStates(){
+    this.stateService.getStates().subscribe({
+      next: result => this.states = result
     })
   }
 
@@ -50,6 +56,12 @@ export class CalendarmodalComponent {
           id: this.selectedPerson.user_id,
           name: this.selectedPerson.firstname,
           surname: this.selectedPerson.lastname,
+          email: this.selectedPerson.email,
+          phone: this.selectedPerson.phoneNumber,
+          qualification: this.selectedPerson.qualification,
+          residency: this.selectedPerson.residency,
+          academyStart: this.selectedPerson.academy_start_date,
+          academyEnd: this.selectedPerson.academy_end_date
         },
         eventTitle: this.eventTitle,
         hour: this.selectedHour,

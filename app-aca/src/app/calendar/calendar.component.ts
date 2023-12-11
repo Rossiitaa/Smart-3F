@@ -30,6 +30,7 @@ export class CalendarComponent {
   absentUsers: any[] = [];
   showEvents = false
   selectedUser!: any;
+  titleFormatted: any;
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     height: 'auto',
@@ -75,18 +76,25 @@ export class CalendarComponent {
     dialogRef.afterClosed().subscribe((eventDetails: any) => {
       if (eventDetails) {
         const calendarApi = info.view.calendar;
-        const eventColor = eventDetails.eventTitle === 'Smart' ? 'blue' : 'red';
+        const eventColor = eventDetails.eventTitle === 'ASSENZA' ? 'red' : 'blue';
         this.selectedUser = eventDetails.person;
+        this.titleFormatted = eventDetails.eventTitle.replace(/_/g, ' ')
         const newEvent: any = {
           id: createEventId(),
-          title: eventDetails.eventTitle,
+          title: this.titleFormatted,
           start: info.startStr,
           end: info.endStr,
           allDay: false,
           extendedProps: {
-            id: eventDetails.person.user_id,
-            name: eventDetails.person.firstname,
-            surname: eventDetails.person.lastname,
+            id: eventDetails.person.id,
+            name: eventDetails.person.name,
+            surname: eventDetails.person.surname,
+            email: eventDetails.person.email,
+            phone: eventDetails.person.phone,
+            qualification: eventDetails.person.qualification,
+            residency: eventDetails.person.residency,
+            academyStart: eventDetails.person.academyStart,
+            academyEnd: eventDetails.person.academyEnd
           },
           backgroundColor: eventColor,
         };
@@ -124,6 +132,12 @@ export class CalendarComponent {
     this.selectedEvent = {
       name: eventGot.event.extendedProps['name'],
       surname: eventGot.event.extendedProps['surname'],
+      email: eventGot.event.extendedProps['email'],
+      phone: eventGot.event.extendedProps['phone'],
+      qualification: eventGot.event.extendedProps['qualification'],
+      residency: eventGot.event.extendedProps['residency'],
+      academyStart: eventGot.event.extendedProps['academyStart'],
+      academyEnd: eventGot.event.extendedProps['academyEnd'],
     };
   }
 

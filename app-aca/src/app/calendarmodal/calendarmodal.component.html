@@ -18,8 +18,7 @@
         <mat-form-field>
           <mat-label>Event type</mat-label>
           <mat-select [(ngModel)]="eventTitle">
-            <mat-option [value]="'Smart'">Smart</mat-option>
-            <mat-option [value]="'Assenza'">Assenza</mat-option>
+            <mat-option *ngFor="let state of states" [value]="state.state">{{state.state | removeUnderscore}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
