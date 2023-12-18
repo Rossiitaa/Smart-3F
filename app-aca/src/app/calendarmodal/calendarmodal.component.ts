@@ -16,7 +16,7 @@ export class CalendarmodalComponent {
   hours: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   eventTitle: string = '';
   selectedDate: any;
-  selectedPerson: any;
+  selectedPerson: any = '';
   selectedHour: number = 1;
   eventContainerClass: string = '';
   listPerson!: User[];
@@ -65,7 +65,7 @@ export class CalendarmodalComponent {
         },
         eventTitle: this.eventTitle,
         hour: this.selectedHour,
-        eventColor: this.eventContainerClass,
+        eventColor: this.eventContainerClass
       };
     }
     return null;

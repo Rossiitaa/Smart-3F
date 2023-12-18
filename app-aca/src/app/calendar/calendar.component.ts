@@ -15,30 +15,38 @@ import { CalendarmodalComponent } from '../calendarmodal/calendarmodal.component
 import { createEventId } from '../event-util';
 import { SharingService } from '../services/sharing.service';
 import { Router } from '@angular/router';
+import { flexibleCompare } from '@fullcalendar/core/internal';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
 })
 export class CalendarComponent {
   calendarVisible = true;
   currentEvents: EventApi[] = [];
   selectedEvent!: any;
   events: any[] = [];
-  smartUsers: any[] = [];
-  absentUsers: any[] = [];
-  showEvents = false
+  showEvents = false;
   selectedUser!: any;
   titleFormatted: any;
+  hour: any = 0
   calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
+    //initialView: 'dayGridMonth',
     height: 'auto',
     contentHeight: 600,
     weekends: false,
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
+    timeZone: 'UTC',
+    initialView: 'timeGridWeek',
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'timeGridWeek,timeGridDay',
+    },
+    slotDuration: this.hour,
     select: (info) => {
       this.choiceModal(info);
     },
@@ -47,14 +55,14 @@ export class CalendarComponent {
     events: this.events,
     plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
   };
-  listPerson! : any[];
+  listPerson!: any[];
   constructor(
     public dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
     private sharingService: SharingService,
     private router: Router
   ) {}
-    
+
   choiceModal(info: any): any {
     const dialogRef = this.dialog.open(ChoiceComponent, {
       width: '300px',
@@ -76,12 +84,12 @@ export class CalendarComponent {
     dialogRef.afterClosed().subscribe((eventDetails: any) => {
       if (eventDetails) {
         const calendarApi = info.view.calendar;
-        const eventColor = eventDetails.eventTitle === 'ASSENZA' ? 'red' : 'blue';
-        this.selectedUser = eventDetails.person;
-        this.titleFormatted = eventDetails.eventTitle.replace(/_/g, ' ')
+        const eventColor =
+          eventDetails.eventTitle === 'ASSENZA' ? 'red' : 'blue';
+        this.titleFormatted = eventDetails.eventTitle.replace(/_/g, ' ');
         const newEvent: any = {
           id: createEventId(),
-          title: this.titleFormatted,
+          title: eventDetails.person.name + ' ' + eventDetails.person.surname,
           start: info.startStr,
           end: info.endStr,
           allDay: false,
@@ -94,28 +102,29 @@ export class CalendarComponent {
             qualification: eventDetails.person.qualification,
             residency: eventDetails.person.residency,
             academyStart: eventDetails.person.academyStart,
-            academyEnd: eventDetails.person.academyEnd
+            academyEnd: eventDetails.person.academyEnd,
           },
+          hour: eventDetails.hour,
           backgroundColor: eventColor,
         };
-     
+
         let flag = false;
         for (const event of this.events) {
-          if(event.start == newEvent.start && event.title == newEvent.title){           
+          if (event.start == newEvent.start && event.title == newEvent.title) {
             flag = true;
           }
-
         }
-        if(!flag){
+
+        if (!flag) {
           calendarApi.addEvent(newEvent);
-          this.showEvents = true
+          this.showEvents = true;
           calendarApi.unselect();
           this.changeDetector.detectChanges();
         }
         this.events = [...this.events, newEvent];
+
         this.sharingService.setPeople(this.events);
       }
-      
     });
   }
 
@@ -139,9 +148,10 @@ export class CalendarComponent {
       academyStart: eventGot.event.extendedProps['academyStart'],
       academyEnd: eventGot.event.extendedProps['academyEnd'],
     };
+    this.onDetailClick(this.selectedEvent);
   }
 
-  onDetailClick(people: any){
+  onDetailClick(people: any) {
     this.sharingService.setPeople(people);
     this.router.navigate(['/detail']);
   }

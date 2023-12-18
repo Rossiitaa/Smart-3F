@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg p-3">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Smart</a>
+    <a class="navbar-brand">
+      <img src="./assets/logoBle.png" width="195px">
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,7 +10,6 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="">Home</a>
         </li>
       </ul>
     </div>
@@ -26,14 +27,3 @@
 
   <full-calendar [options]="calendarOptions"></full-calendar>
 </div>
-
-<div *ngIf="events && showEvents" class="event-detail">
-  <h2 *ngIf="showEvents">Event detail</h2>
-  <ul class="cont-detail">
-    <li *ngFor="let people of events" (click)="onDetailClick(people.extendedProps)">
-      <span>Name: {{ people.extendedProps.name }}</span><br>
-      <span>Surname: {{ people.extendedProps.surname }}</span>
-    </li>
-  </ul>
-</div>
-
