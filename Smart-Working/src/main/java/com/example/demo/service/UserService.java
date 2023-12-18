@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,54 @@ public class UserService {
 		u.setPhoneNumber(user.getPhoneNumber());
 		u.setQualification(user.getQualification());
 		u.setResidency(user.getResidency());
-		u.setAcademy_end_date(user.getAcademy_end_date());
-		u.setAcademy_start_date(user.getAcademy_start_date());
+		u.setAcademyEndDate(user.getAcademyEndDate());
+		u.setAcademyStartDate(user.getAcademyStartDate());
 		u.setImageUrl(user.getImageUrl());
+		u.setPassword(user.getPassword());
+		u.setBirthDate(user.getBirthDate());
+		u.setHasExperience(user.isHasExperience());
+		u.setWorkExperiencePeriod(user.getWorkExperiencePeriod());
 		return userRepository.save(u);
 	}
 
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
 	}
+
+	public User updateUserImage(Long user_id, String img) {
+		// TODO Auto-generated method stub
+		User user = userRepository.getReferenceById(user_id);
+		user.setImageUrl(img);
+		userRepository.save(user);
+		return user;
+	}
 	
+	public User register(User user) {
+		if (userExists(user.getEmail()) == null) {
+			return userRepository.save(user);
+		} else {
+			throw new RuntimeException("L'utente e' gia' presente");
+		}
+	}
+ 
+	public User userExists(String email) {
+		return userRepository.findByEmail(email);
+	}
+ 
+	public User login(String email, String password) {
+		return userRepository.findByEmailAndPassword(email, password);
+ 
+	}
+
+	public Integer calcAge(Long user_id) {
+		// TODO Auto-generated method stub
+		User u = userRepository.getReferenceById(user_id);
+		LocalDate now = LocalDate.now();
+		Integer age = now.getYear() - u.getBirthDate().getYear();
+		if( (u.getBirthDate().getMonthValue() > now.getMonthValue()) || (u.getBirthDate().getMonthValue() == now.getMonthValue() && u.getBirthDate().getDayOfMonth() > now.getDayOfMonth()))
+			age-=1;
+		return age;
+	}
 	
 	
 	

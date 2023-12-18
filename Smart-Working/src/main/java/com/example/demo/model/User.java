@@ -16,8 +16,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long user_id;
-	private String firstName,lastName,email,phoneNumber,qualification,residency,imageUrl;
-	private LocalDate academy_start_date,academy_end_date;
+	private String firstName,lastName,email,phoneNumber,qualification,residency,imageUrl, workExperiencePeriod,password;
+	private LocalDate academyStartDate,academyEndDate, birthDate;
+	private boolean hasExperience;
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<User_State> user_states;
@@ -26,10 +27,11 @@ public class User {
 	public User() {
 		
 	}
-
 	
+
 	public User(String firstName, String lastName, String email, String phoneNumber, String qualification,
-			String residency, String imageUrl, LocalDate academy_start_date, LocalDate academy_end_date,
+			String residency, String imageUrl, String workExperiencePeriod, String password,
+			LocalDate academy_start_date, LocalDate academy_end_date, LocalDate birth_date, boolean hasExperience,
 			List<User_State> user_states) {
 		super();
 		this.firstName = firstName;
@@ -39,29 +41,44 @@ public class User {
 		this.qualification = qualification;
 		this.residency = residency;
 		this.imageUrl = imageUrl;
-		this.academy_start_date = academy_start_date;
-		this.academy_end_date = academy_end_date;
+		this.workExperiencePeriod = workExperiencePeriod;
+		this.password = password;
+		this.academyEndDate = academy_start_date;
+		this.academyEndDate = academy_end_date;
+		this.birthDate = birth_date;
+		this.hasExperience = hasExperience;
 		this.user_states = user_states;
 	}
 
 
-	public LocalDate getAcademy_start_date() {
-		return academy_start_date;
+
+	public String getPassword() {
+		return password;
 	}
 
 
-	public void setAcademy_start_date(LocalDate academy_start_date) {
-		this.academy_start_date = academy_start_date;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 
-	public LocalDate getAcademy_end_date() {
-		return academy_end_date;
+	public LocalDate getAcademyStartDate() {
+		return academyEndDate;
 	}
 
 
-	public void setAcademy_end_date(LocalDate academy_end_date) {
-		this.academy_end_date = academy_end_date;
+	public void setAcademyStartDate(LocalDate academy_start_date) {
+		this.academyEndDate = academy_start_date;
+	}
+
+
+	public LocalDate getAcademyEndDate() {
+		return academyEndDate;
+	}
+
+
+	public void setAcademyEndDate(LocalDate academy_end_date) {
+		this.academyEndDate = academy_end_date;
 	}
 
 
@@ -153,9 +170,39 @@ public class User {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	
-	
 
+
+	public String getWorkExperiencePeriod() {
+		return workExperiencePeriod;
+	}
+
+
+	public void setWorkExperiencePeriod(String workExperiencePeriod) {
+		this.workExperiencePeriod = workExperiencePeriod;
+	}
+
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+
+	public void setBirthDate(LocalDate birth_date) {
+		this.birthDate = birth_date;
+	}
+
+
+	public boolean isHasExperience() {
+		return hasExperience;
+	}
+
+
+	public void setHasExperience(boolean hasExperience) {
+		this.hasExperience = hasExperience;
+	}
+	
+	
+	
 
 
 	
