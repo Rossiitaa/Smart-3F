@@ -24,8 +24,8 @@ public class UserService {
 
 	public User updateUser(long id,User user) {
 		User u=userRepository.getReferenceById(id);
-		u.setLastname(user.getLastname());
-		u.setFirstname(user.getFirstname());
+		u.setLastName(user.getLastName());
+		u.setFirstName(user.getFirstName());
 		u.setUser_states(user.getUser_states());
 		u.setEmail(user.getEmail());
 		u.setPhoneNumber(user.getPhoneNumber());
@@ -33,6 +33,7 @@ public class UserService {
 		u.setResidency(user.getResidency());
 		u.setAcademy_end_date(user.getAcademy_end_date());
 		u.setAcademy_start_date(user.getAcademy_start_date());
+		u.setImageUrl(user.getImageUrl());
 		return userRepository.save(u);
 	}
 

@@ -16,7 +16,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long user_id;
-	private String firstname,lastname,email,phoneNumber,qualification,residency;
+	private String firstName,lastName,email,phoneNumber,qualification,residency,imageUrl;
 	private LocalDate academy_start_date,academy_end_date;
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
@@ -27,8 +27,22 @@ public class User {
 		
 	}
 
-
-
+	
+	public User(String firstName, String lastName, String email, String phoneNumber, String qualification,
+			String residency, String imageUrl, LocalDate academy_start_date, LocalDate academy_end_date,
+			List<User_State> user_states) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.qualification = qualification;
+		this.residency = residency;
+		this.imageUrl = imageUrl;
+		this.academy_start_date = academy_start_date;
+		this.academy_end_date = academy_end_date;
+		this.user_states = user_states;
+	}
 
 
 	public LocalDate getAcademy_start_date() {
@@ -36,15 +50,9 @@ public class User {
 	}
 
 
-
-
-
 	public void setAcademy_start_date(LocalDate academy_start_date) {
 		this.academy_start_date = academy_start_date;
 	}
-
-
-
 
 
 	public LocalDate getAcademy_end_date() {
@@ -52,33 +60,9 @@ public class User {
 	}
 
 
-
-
-
 	public void setAcademy_end_date(LocalDate academy_end_date) {
 		this.academy_end_date = academy_end_date;
 	}
-
-
-
-
-
-	public User(String firstname, String lastname, String email, String phoneNumber, String qualification,
-			String residency, LocalDate academy_start_date, LocalDate academy_end_date, List<User_State> user_states) {
-		super();
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.qualification = qualification;
-		this.residency = residency;
-		this.academy_start_date = academy_start_date;
-		this.academy_end_date = academy_end_date;
-		this.user_states = user_states;
-	}
-
-
-
 
 
 	public String getEmail() {
@@ -131,23 +115,23 @@ public class User {
 	}
 
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstname) {
+		this.firstName = firstname;
 	}
 
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastname) {
+		this.lastName = lastname;
 	}
 
 
@@ -159,6 +143,18 @@ public class User {
 	public void setUser_states(List<User_State> user_states) {
 		this.user_states = user_states;
 	}
+
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
+	
 
 
 
