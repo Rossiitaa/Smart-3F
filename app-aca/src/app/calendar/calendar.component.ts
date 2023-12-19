@@ -26,27 +26,25 @@ export class CalendarComponent {
   calendarVisible = true;
   currentEvents: EventApi[] = [];
   selectedEvent!: any;
-  events: any[] = [];
+  events!: any[];
   showEvents = false;
   selectedUser!: any;
   titleFormatted: any;
   hour: any = 0
   calendarOptions: CalendarOptions = {
-    //initialView: 'dayGridMonth',
+    initialView: 'dayGridMonth',
     height: 'auto',
     contentHeight: 600,
     weekends: false,
     selectable: true,
-    selectMirror: true,
+    selectMirror: false,
     dayMaxEvents: true,
-    timeZone: 'UTC',
-    initialView: 'timeGridWeek',
-    headerToolbar: {
+    //initialView: 'timeGridWeek',
+    /*headerToolbar: {
       left: 'prev,next today',
       center: 'title',
       right: 'timeGridWeek,timeGridDay',
-    },
-    slotDuration: this.hour,
+    }*/
     select: (info) => {
       this.choiceModal(info);
     },
@@ -61,7 +59,7 @@ export class CalendarComponent {
     private changeDetector: ChangeDetectorRef,
     private sharingService: SharingService,
     private router: Router
-  ) {}
+  ) { }
 
   choiceModal(info: any): any {
     const dialogRef = this.dialog.open(ChoiceComponent, {
@@ -86,10 +84,10 @@ export class CalendarComponent {
         const calendarApi = info.view.calendar;
         const eventColor =
           eventDetails.eventTitle === 'ASSENZA' ? 'red' : 'blue';
-        this.titleFormatted = eventDetails.eventTitle.replace(/_/g, ' ');
+        this.titleFormatted = eventDetails.person.name + ' ' + eventDetails.person.surname + ' - ' + eventDetails.hour + 'h'
         const newEvent: any = {
           id: createEventId(),
-          title: eventDetails.person.name + ' ' + eventDetails.person.surname,
+          title: this.titleFormatted,
           start: info.startStr,
           end: info.endStr,
           allDay: false,
@@ -109,19 +107,20 @@ export class CalendarComponent {
         };
 
         let flag = false;
-        for (const event of this.events) {
-          if (event.start == newEvent.start && event.title == newEvent.title) {
-            flag = true;
-          }
-        }
-
         if (!flag) {
           calendarApi.addEvent(newEvent);
           this.showEvents = true;
           calendarApi.unselect();
           this.changeDetector.detectChanges();
         }
+
         this.events = [...this.events, newEvent];
+
+        for (const event of this.events) {
+          if (event.start == newEvent.start && event.title == newEvent.title) {
+            flag = true;
+          }
+        }
 
         this.sharingService.setPeople(this.events);
       }

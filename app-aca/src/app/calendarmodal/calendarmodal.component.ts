@@ -21,6 +21,7 @@ export class CalendarmodalComponent {
   eventContainerClass: string = '';
   listPerson!: User[];
   states!: any[];
+  notes!: any;
   constructor(
     public dialogRef: MatDialogRef<CalendarmodalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -49,6 +50,10 @@ export class CalendarmodalComponent {
     this.dialogRef.close();
   }
 
+  disableHour(){
+    
+  }
+
   getEventData(): any {
     if (this.selectedPerson) {
       return {
@@ -65,7 +70,8 @@ export class CalendarmodalComponent {
         },
         eventTitle: this.eventTitle,
         hour: this.selectedHour,
-        eventColor: this.eventContainerClass
+        eventColor: this.eventContainerClass,
+        notes: this.notes
       };
     }
     return null;

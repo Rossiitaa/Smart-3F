@@ -38,3 +38,7 @@ a {
     font-size: x-large;
     font-weight: bold;
 }
+.fc-direction-ltr .fc-daygrid-event .fc-event-time {
+    margin-right: 3px;
+    display: none;
+}
