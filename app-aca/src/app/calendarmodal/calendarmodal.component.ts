@@ -29,30 +29,28 @@ export class CalendarmodalComponent {
     private stateService: StateService
   ) {}
 
-  ngOnInit(){
-    this.getAllUsers()
-    this.getAllStates()
+  ngOnInit() {
+    this.getAllUsers();
+    this.getAllStates();
   }
 
-  getAllUsers(){
+  getAllUsers() {
     this.userService.getUsers().subscribe({
-      next: result => this.listPerson = result
-    })
+      next: (result) => (this.listPerson = result),
+    });
   }
 
-  getAllStates(){
+  getAllStates() {
     this.stateService.getStates().subscribe({
-      next: result => this.states = result
-    })
+      next: (result) => (this.states = result),
+    });
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  disableHour(){
-    
-  }
+  disableHour() {}
 
   getEventData(): any {
     if (this.selectedPerson) {
@@ -66,15 +64,18 @@ export class CalendarmodalComponent {
           qualification: this.selectedPerson.qualification,
           residency: this.selectedPerson.residency,
           academyStart: this.selectedPerson.academy_start_date,
-          academyEnd: this.selectedPerson.academy_end_date
+          academyEnd: this.selectedPerson.academy_end_date,
+        },
+        request: {
+          date: this.data.date,
+          hour: this.selectedHour,
         },
         eventTitle: this.eventTitle,
         hour: this.selectedHour,
         eventColor: this.eventContainerClass,
-        notes: this.notes
+        notes: this.notes,
       };
     }
     return null;
   }
-  
 }

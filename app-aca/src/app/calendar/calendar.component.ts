@@ -16,6 +16,7 @@ import { createEventId } from '../event-util';
 import { SharingService } from '../services/sharing.service';
 import { Router } from '@angular/router';
 import { flexibleCompare } from '@fullcalendar/core/internal';
+import { UserStateService } from '../services/user-state.service';
 
 @Component({
   selector: 'app-calendar',
@@ -26,11 +27,11 @@ export class CalendarComponent {
   calendarVisible = true;
   currentEvents: EventApi[] = [];
   selectedEvent!: any;
-  events!: any[];
+  events: any[] = [];
   showEvents = false;
   selectedUser!: any;
   titleFormatted: any;
-  hour: any = 0
+  hour: any = 0;
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     height: 'auto',
@@ -39,15 +40,7 @@ export class CalendarComponent {
     selectable: true,
     selectMirror: false,
     dayMaxEvents: true,
-    //initialView: 'timeGridWeek',
-    /*headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'timeGridWeek,timeGridDay',
-    }*/
-    select: (info) => {
-      this.choiceModal(info);
-    },
+    select: this.openModal.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
     events: this.events,
@@ -58,8 +51,9 @@ export class CalendarComponent {
     public dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
     private sharingService: SharingService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private usService: UserStateService
+  ) {}
 
   choiceModal(info: any): any {
     const dialogRef = this.dialog.open(ChoiceComponent, {
@@ -77,52 +71,74 @@ export class CalendarComponent {
   openModal(info: any): any {
     const dialogRef = this.dialog.open(CalendarmodalComponent, {
       width: '500px',
+      data: { date: info.startStr, endDate: info.endStr  },
     });
 
     dialogRef.afterClosed().subscribe((eventDetails: any) => {
       if (eventDetails) {
-        const calendarApi = info.view.calendar;
-        const eventColor =
-          eventDetails.eventTitle === 'ASSENZA' ? 'red' : 'blue';
-        this.titleFormatted = eventDetails.person.name + ' ' + eventDetails.person.surname + ' - ' + eventDetails.hour + 'h'
-        const newEvent: any = {
-          id: createEventId(),
-          title: this.titleFormatted,
-          start: info.startStr,
-          end: info.endStr,
-          allDay: false,
-          extendedProps: {
-            id: eventDetails.person.id,
-            name: eventDetails.person.name,
-            surname: eventDetails.person.surname,
-            email: eventDetails.person.email,
-            phone: eventDetails.person.phone,
-            qualification: eventDetails.person.qualification,
-            residency: eventDetails.person.residency,
-            academyStart: eventDetails.person.academyStart,
-            academyEnd: eventDetails.person.academyEnd,
-          },
-          hour: eventDetails.hour,
-          backgroundColor: eventColor,
-        };
+        console.log(eventDetails.person);
+        console.log(eventDetails.request);
+        this.usService
+          .saveUserState(
+            eventDetails.person,
+            eventDetails.eventTitle,
+            eventDetails.request
+          )
+          .subscribe({
+            next: () => {
+              const calendarApi = info.view.calendar;
+              const eventColor =
+                eventDetails.eventTitle === 'ASSENZA' ? 'red' : 'blue';
+              this.titleFormatted =
+                eventDetails.person.name +
+                ' ' +
+                eventDetails.person.surname +
+                ' - ' +
+                eventDetails.hour +
+                'h';
+              const newEvent: any = {
+                id: createEventId(),
+                title: this.titleFormatted,
+                start: info.startStr,
+                end: info.endStr,
+                allDay: true,
+                extendedProps: {
+                  id: eventDetails.person.id,
+                  name: eventDetails.person.name,
+                  surname: eventDetails.person.surname,
+                  email: eventDetails.person.email,
+                  phone: eventDetails.person.phone,
+                  qualification: eventDetails.person.qualification,
+                  residency: eventDetails.person.residency,
+                  academyStart: eventDetails.person.academyStart,
+                  academyEnd: eventDetails.person.academyEnd,
+                },
+                hour: eventDetails.hour,
+                backgroundColor: eventColor,
+              };
 
-        let flag = false;
-        if (!flag) {
-          calendarApi.addEvent(newEvent);
-          this.showEvents = true;
-          calendarApi.unselect();
-          this.changeDetector.detectChanges();
-        }
+              let flag = false;
+              if (!flag) {
+                console.log(flag);
+                calendarApi.addEvent(newEvent);
+                //calendarApi.unselect();
+                this.changeDetector.detectChanges();
+              }
 
-        this.events = [...this.events, newEvent];
+              this.events = [...this.events, newEvent];
+              console.log(this.events);
+              for (const event of this.events) {
+                if (
+                  event.start == newEvent.start &&
+                  event.title == newEvent.title
+                ) {
+                  flag = true;
+                }
+              }
 
-        for (const event of this.events) {
-          if (event.start == newEvent.start && event.title == newEvent.title) {
-            flag = true;
-          }
-        }
-
-        this.sharingService.setPeople(this.events);
+              this.sharingService.setPeople(this.events);
+            },
+          });
       }
     });
   }
